@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akıllı Kontrol Sistemi || </title>
+
+    <!-- ======= JQUERY Connection ====== -->
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous">
+        </script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
+
+    <!-- <script src="jquery-3.6.1.min.js"></script> -->
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="logo-apple"></ion-icon>
+                        </span>
+                        <span class="title"><i> MEG Software</i></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Kontrol Paneli</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+            </div>
+
+            <!-- ======================= Cards ================== -->
+            <div class="cardBox" ; style="background-color: #242424;">
+                <div class="card">
+                    <div>
+                        <div id="temp" class="numbers">34 C° </div> <!--  sıcaklık verisi = temperature -->
+                        <div class="cardName">
+                            <h3 style="color:#a2bdee">Sıcaklık</h3>
+                        </div>
+
+                    </div>
+
+                    <div class="iconBx">
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div id="nem" class="numbers">37 %</div>
+                        <div class="cardName">
+                            <h3 style="color:#a2bdee">Nem</h3>
+                        </div>
+                    </div>
+
+                    <div class="iconBx">
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">
+                            <h5 style="color:red">Kapalı</h5>
+                        </div>
+                        <div class="cardName">
+                            <h3 style="color:#a2bdee">Fan</h3>
+                        </div>
+                    </div>
+
+                    <div class="iconBx">
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">
+                            <h5 style="color:red">Kapalı</h5>
+                        </div>
+                        <div class="cardName">
+                            <h3 style="color:#a2bdee">Lamba</h3>
+                        </div>
+                    </div>
+
+                    <div class="iconBx">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================ Order Details List ================= -->
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>Sensör Durumları</h2>
+
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Sensör</td>
+                                <td></td>
+                                <td>Sensör Verisi</td>
+                                <td>On/Off</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Sıcaklık</td>
+                                <td></td>
+                                <td id="sicaklikDurum"> 24 C°</td>
+                                <td><span class="status acik">Aktif</span></td>
+                                <!-- buraya id degeri yazdım js de onu  degistircem degil mi -->
+                            </tr>
+
+                            <tr>
+                                <td>Nem</td>
+                                <td></td>
+                                <td id="nemDurum">40 %</td>
+                                <td><span class="status acik">Aktif</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Fan Durumu</td>
+                                <td></td>
+                                <td id="fanDurum">0</td>
+                                <td id="fanOnOff"><span class="status kapali">Kapalı</span></td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Yağmur Durumu</td>
+                                <td></td>
+                                <td id="yagmurDurum">Yağmur Yok</td>
+                                <td><span class="status acik">Aktif</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Hareket Durumu</td>
+                                <td></td>
+                                <td id="hareketDurum">0</td>
+                                <td><span class="status kapali">Kapalı</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Lamba Durumu</td>
+                                <td></td>
+                                <td id="lambaDurum">Lamba Açık</td>
+                                <td><span class="status acik">Aktif</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Işık Sensörü</td>
+                                <td></td>
+                                <td id="isikDurum">0</td>
+                                <td><span class="status kapali">Kapalı</span></td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ================= New Customers ================ -->
+                <div class="recentCustomers">
+
+                    <div class="cardHeader">
+                        <h2 style="color:darkorange">Uzaktan Kontrol </h2>
+                    </div>
+                    <br>
+
+                    <table>
+
+                        <tr> <!--  tr satır demek td sutun -->
+                            <br>
+                            <h2 style="color:#1795ce">Servo Motor</h2>
+
+                            <td width="60px">
+                                <button id="btnServo" class="button">Çalıştır</button>
+
+
+                            </td>
+
+
+                            <td>
+                                <h3 id="calistir" ; style="color:red"> KAPALI </h3>
+                            </td>
+                        </tr>
+
+                        <!-- lamba kısmı    -->
+                        <tr>
+                            <td>
+                                <br>
+                                <h2 style="color:#1795ce" ;> Lamba</h2>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <button id="btnLamba" ; class="button">Çalıştır</button>
+
+
+                            </td>
+
+
+                            <td>
+                                <h3 id="calistir" ; style="color:red"> KAPALI </h3>
+                            </td>
+
+                        </tr>
+                        <!-- LAMBA BİTİŞ-->
+
+                        <!-- FAN BASLANGIC-->
+                        <tr>
+                            <td>
+                                <br>
+                                <h2  style="color:#1795ce" ;> Fan</h2>  <!-- id ver buna - burayı hallet -->
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <button id="btnFan" ; class="button">Çalıştır</button>
+
+
+                            </td>
+
+
+                            <td>
+                                <h3 id="calistir" ; style="color:red"> KAPALI </h3>
+                            </td>
+
+                        </tr>
+                        <!-- FAN BITIS-->
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- =========== Scripts =========  -->
+    <script>
+        $(document).ready(function () {
+
+            setInterval(function () {
+                $.ajax({
+                    url: "http://localhost:9000/sicaklik",
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (response) {
+
+                        $('#temp').text(response.sicaklik + " C°");
+                        $('#sicaklikDurum').text(response.sicaklik + " C°");
+
+
+                    },
+                    error: function (xhr, status) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
+
+            setInterval(function () {
+                $.ajax({
+                    url: "http://localhost:9000/nem",
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (response) {
+
+                        $('#nem').text(response.nem + " %");
+                        $('#nemDurum').text(response.nem + " %");
+
+                    },
+                    error: function (xhr, status) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
+
+
+            setInterval(function () {
+                $.ajax({
+                    url: "http://localhost:9000/yagmur",
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (response) {
+                        
+                        if(response.yagmur==0){
+                            $('#yagmurDurum').text("Yagmur Yok");
+                        }
+                        else {
+                            $('#yagmurDurum').text("Hava Yagisli");
+                        }
+                        
+
+                    },
+                    error: function (xhr, status) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
+
+
+            setInterval(function () {
+                $.ajax({
+                    url: "http://localhost:9000/fan",
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (response) {
+                        
+                        if(response.fan==0){
+                            $('#fanDurum').text(response.fan);
+                            
+                            // <span class="status kapali">Kapalı</span>
+                        }
+                        else {
+                            $('#fanDurum').text("Çalışıyor");
+                             //$('#fanOnOff').html(<span class="status acik">Açık</span>)
+                             // kırmızı *kapalı* yazan on off durumu fan çalısınca yeşile donsun aktif yazsin 
+                        }
+                        
+
+                    },
+                    error: function (xhr, status) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
+
+            // hareket
+            setInterval(function () {    //On Off düzenle
+                $.ajax({
+                    url: "http://localhost:9000/hareket",
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (response) {
+                        
+                        if(response.hareket==0){
+                            $('#hareketDurum').text(response.hareket);
+                            // hareket sensorunu kapatabilme ozelligimiz olsun
+                            
+                        }
+                        else {
+                            $('#hareketDurum').text("Bir Hareket Algılandı");
+                            
+                        }
+                        
+
+                    },
+                    error: function (xhr, status) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
+
+            //lamba
+            setInterval(function () {     //On Off düzenle
+                $.ajax({
+                    url: "http://localhost:9000/lamba",
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (response) {
+                        
+                        if(response.lamba==0){
+                            $('#lambaDurum').text("Lamba Kapalı");
+                            // kapalı durumunda on off kısmını kırmızı hale getirip kapalı yazısı yazdır
+                        }
+                        else {
+                            $('#lambaDurum').text("Lamba Açık");
+                            
+                        }
+                        
+
+                    },
+                    error: function (xhr, status) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
+
+              //isik
+              setInterval(function () {     //On Off düzenle
+                $.ajax({
+                    url: "http://localhost:9000/isik",
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (response) {
+                        
+                        if(response.isik==0){
+                            $('#isikDurum').text("Hava Karanlık");
+                            // kapalı durumunda on off kısmını kırmızı hale getirip kapalı yazısı yazdır
+                        }
+                        else {
+                            $('#isikDurum').text("Hava Aydınlık");
+                            
+                        }
+                        
+
+                    },
+                    error: function (xhr, status) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
+
+            
+
+
+        });
+
+
+
+        // var nem = 46;
+        // $("#bilal").text(nem);
+        // var temperature = 19;
+        // $('#temp').text(temperature);
+    </script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
