@@ -33,7 +33,7 @@
                         <span class="icon">
                             <ion-icon name="logo-apple"></ion-icon>
                         </span>
-                        <span class="title"><i> MEG Software</i></span>
+                        <span class="title"><i> Uzaktan Kontrol Sistemi</i></span>
                     </a>
                 </li>
 
@@ -42,7 +42,7 @@
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
-                        <span class="title">Kontrol Paneli</span>
+                        <span class="title"><h3>Kontrol Paneli</h3></span>
                     </a>
                 </li>
 
@@ -51,7 +51,7 @@
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Sign Out</span>
+                        <span class="title"><h3>Çıkış</h2> </span>
                     </a>
                 </li>
             </ul>
@@ -60,9 +60,10 @@
         <!-- ========================= Main ==================== -->
         <div class="main">
             <div class="topbar">
-                <div class="toggle">
+                <!-- <div class="toggle">
                     <ion-icon name="menu-outline"></ion-icon>
-                </div>
+                </div> -->
+                
 
             </div>
 
@@ -98,7 +99,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers">
-                            <h5 style="color:red">Kapalı</h5>
+                            <h5 id="fanTitle" style="color:red">Kapalı</h5>
                         </div>
                         <div class="cardName">
                             <h3 style="color:#a2bdee">Fan</h3>
@@ -113,7 +114,7 @@
                 <div class="card">
                     <div>
                         <div class="numbers">
-                            <h5 style="color:red">Kapalı</h5>
+                            <h5 id="lambaTitle" style="color:red">Kapalı</h5>
                         </div>
                         <div class="cardName">
                             <h3 style="color:#a2bdee">Lamba</h3>
@@ -164,7 +165,7 @@
                                 <td>Fan Durumu</td>
                                 <td></td>
                                 <td id="fanDurum">0</td>
-                                <td id="fanOnOff"><span class="status kapali">Kapalı</span></td>
+                                <td ><span id="fanOnOff" class="status kapali">Kapalı </span></td>
                             </tr>
 
 
@@ -179,23 +180,36 @@
                                 <td>Hareket Durumu</td>
                                 <td></td>
                                 <td id="hareketDurum">0</td>
-                                <td><span class="status kapali">Kapalı</span></td>
+                                <td><span id="hareketOnOff" class="status kapali">Kapalı</span></td>
                             </tr>
 
                             <tr>
                                 <td>Lamba Durumu</td>
                                 <td></td>
                                 <td id="lambaDurum">Lamba Açık</td>
-                                <td><span class="status acik">Aktif</span></td>
+                                <td><span id="lambaOnOff" class="status acik">Aktif</span></td>
                             </tr>
 
                             <tr>
-                                <td>Işık Sensörü</td>
+                                <td>Işık Durumu</td>
                                 <td></td>
                                 <td id="isikDurum">0</td>
-                                <td><span class="status kapali">Kapalı</span></td>
+                                <td><span id="isikOnOff" class="status kapali">Kapalı</span></td>
                             </tr>
 
+                            <tr>
+                                <td>Bahce Durumu</td>
+                                <td></td>
+                                <td id="touchDurum">0</td>
+                                <td><span id="touchOnOff" class="status kapali">Kapalı</span></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Motor Durumu</td>
+                                <td></td>
+                                <td id="servoDurum">0</td>
+                                <td><span id="servoOnOff" class="status kapali">Kapalı</span></td>
+                            </tr>
 
                         </tbody>
                     </table>
@@ -216,14 +230,14 @@
                             <h2 style="color:#1795ce">Servo Motor</h2>
 
                             <td width="60px">
-                                <button id="btnServo" class="button">Çalıştır</button>
+                                <button id="btnServo" onclick=ServoRunOrStop() class="button">Çalıştır</button>
 
 
                             </td>
 
 
                             <td>
-                                <h3 id="calistir" ; style="color:red"> KAPALI </h3>
+                                <h3 id="servoUzaktanKontrol"  style="color:red"> KAPALI </h3>
                             </td>
                         </tr>
 
@@ -239,14 +253,14 @@
 
                         <tr>
                             <td width="60px">
-                                <button id="btnLamba" ; class="button">Çalıştır</button>
+                                <button id="btnLamba" onclick=lambaRunOrStop() class="button">Çalıştır</button>
 
 
                             </td>
 
 
                             <td>
-                                <h3 id="calistir" ; style="color:red"> KAPALI </h3>
+                                <h3 id="lambaUzaktanKontrol" ; style="color:red"> KAPALI </h3>
                             </td>
 
                         </tr>
@@ -256,7 +270,7 @@
                         <tr>
                             <td>
                                 <br>
-                                <h2  style="color:#1795ce" ;> Fan</h2>  <!-- id ver buna - burayı hallet -->
+                                <h2  style="color:#1795ce" ;> Fan</h2> 
 
                             </td>
 
@@ -264,14 +278,14 @@
 
                         <tr>
                             <td width="60px">
-                                <button id="btnFan" ; class="button">Çalıştır</button>
+                                <button id="btnFan" onclick=fanRunOrStop() class="button">Çalıştır</button>
 
 
                             </td>
 
 
                             <td>
-                                <h3 id="calistir" ; style="color:red"> KAPALI </h3>
+                                <h3 id="fanUzaktanKontrol" ; style="color:red"> KAPALI </h3>
                             </td>
 
                         </tr>
@@ -287,6 +301,113 @@
 
     <!-- =========== Scripts =========  -->
     <script>
+        var servobutondeger=0
+        var lambabutondeger=0
+        var fanbutondeger=0
+
+        function ServoRunOrStop() {
+            servobutondeger++
+
+
+            $.ajax({
+                url: 'http://localhost:9000/servo',
+                crossDomain: true,
+                dataType: 'json',
+                type: 'POST',
+                contentType: 'application/json',
+                "headers": {
+              "accept": "application/json",
+              "Access-Control-Allow-Origin":"*"
+          },
+                data: JSON.stringify({status:(servobutondeger%2) }),
+                processData: false,
+                success: function (response) {
+                //success: function (data, textStatus, jQxhr) {
+                    //$('#response pre').html(JSON.stringify(data));
+
+
+                    
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+                
+        }
+
+        function lambaRunOrStop() {
+            lambabutondeger++
+
+
+            $.ajax({
+                url: 'http://localhost:9000/lamba',
+                crossDomain: true,
+                dataType: 'json',
+                type: 'POST',
+                contentType: 'application/json',
+                "headers": {
+              "accept": "application/json",
+              "Access-Control-Allow-Origin":"*"
+          },
+                data: JSON.stringify({status:(lambabutondeger%2) }),
+                processData: false,
+                success: function (response) {
+                //success: function (data, textStatus, jQxhr) {
+                    //$('#response pre').html(JSON.stringify(data));
+
+
+                    
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+                
+        }
+
+        function fanRunOrStop() {
+            fanbutondeger++
+
+
+            $.ajax({
+                url: 'http://localhost:9000/fan',
+                crossDomain: true,
+                dataType: 'json',
+                type: 'POST',
+                contentType: 'application/json',
+                "headers": {
+              "accept": "application/json",
+              "Access-Control-Allow-Origin":"*"
+          },
+                data: JSON.stringify({status:(fanbutondeger%2) }),
+                processData: false,
+                success: function (response) {
+                //success: function (data, textStatus, jQxhr) {
+                    //$('#response pre').html(JSON.stringify(data));
+
+
+                    
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+                
+        }
+        
+
+
+        //     $.post("http://localhost:9000/servo", {
+        //         "status": "1"
+        //     }, (data, status) => {
+
+        //         alert("data: ", data, "\nstatus:", status);
+        //     })
+        // }
+
+
+
+
         $(document).ready(function () {
 
             setInterval(function () {
@@ -303,12 +424,14 @@
 
                     },
                     error: function (xhr, status) {
+                        console.log("status: " + status)
+                        console.log("xhr: " + xhr)
+
                         alert("error");
                     }
                 });
-            }, 3000);
 
-            setInterval(function () {
+
                 $.ajax({
                     url: "http://localhost:9000/nem",
                     type: "GET",
@@ -324,7 +447,26 @@
                         alert("error");
                     }
                 });
+
             }, 3000);
+
+            // setInterval(function () {
+            //     $.ajax({
+            //         url: "http://localhost:9000/nem",
+            //         type: "GET",
+            //         crossDomain: true,
+            //         dataType: "json",
+            //         success: function (response) {
+
+            //             $('#nem').text(response.nem + " %");
+            //             $('#nemDurum').text(response.nem + " %");
+
+            //         },
+            //         error: function (xhr, status) {
+            //             alert("error");
+            //         }
+            //     });
+            // }, 3000);
 
 
             setInterval(function () {
@@ -334,14 +476,14 @@
                     crossDomain: true,
                     dataType: "json",
                     success: function (response) {
-                        
-                        if(response.yagmur==0){
+
+                        if (response.yagmur == 0) {
                             $('#yagmurDurum').text("Yagmur Yok");
                         }
                         else {
                             $('#yagmurDurum').text("Hava Yagisli");
                         }
-                        
+
 
                     },
                     error: function (xhr, status) {
@@ -358,18 +500,58 @@
                     crossDomain: true,
                     dataType: "json",
                     success: function (response) {
-                        
-                        if(response.fan==0){
+
+                        if (response.fan == 0) {
                             $('#fanDurum').text(response.fan);
+                            $('#fanOnOff').text("Kapalı");
+                            $('#fanOnOff').removeClass("status acik");
+                            $('#fanOnOff').addClass("status kapali");
+
+                            $('#fanTitle').text("Kapalı");
+                            $('#fanTitle').css("color","red");
+
+                            $('#fanUzaktanKontrol').text("KAPALI");
+                            $('#fanUzaktanKontrol').css("color","red");
+
+                            $('#btnFan').text("Çalıştır");
+                            $('#btnFan').removeClass("button close")
+                            $('#btnFan').addClass("button")
+
                             
+
+                            
+
                             // <span class="status kapali">Kapalı</span>
                         }
                         else {
                             $('#fanDurum').text("Çalışıyor");
-                             //$('#fanOnOff').html(<span class="status acik">Açık</span>)
-                             // kırmızı *kapalı* yazan on off durumu fan çalısınca yeşile donsun aktif yazsin 
+                            $('#fanOnOff').removeClass("status kapali");
+                            $('#fanOnOff').addClass("status acik");
+                            $('#fanOnOff').text("Aktif");
+
+                            $('#fanTitle').text("Açık");
+                            $('#fanTitle').css("color","#3e8e41");
+
+                            $('#fanUzaktanKontrol').text("AÇIK");
+                            $('#fanUzaktanKontrol').css("color","green");
+
+                            $('#btnFan').text("  Kapat  ");
+                            $('#btnFan').removeClass("button")
+                            $('#btnFan').addClass("button close")
+
+                            
+                            
+
+                            
+                            
+                            
+
+
+
+                            //$('#fanOnOff').html(<span class="status acik">Açık</span>)
+                            // kırmızı *kapalı* yazan on off durumu fan çalısınca yeşile donsun aktif yazsin 
                         }
-                        
+
 
                     },
                     error: function (xhr, status) {
@@ -379,24 +561,32 @@
             }, 3000);
 
             // hareket
-            setInterval(function () {    //On Off düzenle
+            setInterval(function () {    // hareket kapatılabilir olsun
                 $.ajax({
                     url: "http://localhost:9000/hareket",
                     type: "GET",
                     crossDomain: true,
                     dataType: "json",
                     success: function (response) {
-                        
-                        if(response.hareket==0){
+
+                        if (response.hareket == 0) {
                             $('#hareketDurum').text(response.hareket);
-                            // hareket sensorunu kapatabilme ozelligimiz olsun
+                            $('#hareketOnOff').text("Aktif");
+                            $('#hareketOnOff').removeClass("status kapali"); // renk degeri
+                            $('#hareketOnOff').addClass("status acik");
                             
+
+                            //!-- hareket sensorunu kapatabilme ozelligimiz olsun
+
                         }
                         else {
                             $('#hareketDurum').text("Bir Hareket Algılandı");
-                            
+                            $('#hareketOnOff').text("Aktif");
+                            $('#hareketOnOff').removeClass("status kapali"); // renk degeri
+                            $('#hareketOnOff').addClass("status acik");
+
                         }
-                        
+
 
                     },
                     error: function (xhr, status) {
@@ -407,22 +597,53 @@
 
             //lamba
             setInterval(function () {     //On Off düzenle
+
+
                 $.ajax({
                     url: "http://localhost:9000/lamba",
                     type: "GET",
                     crossDomain: true,
                     dataType: "json",
                     success: function (response) {
-                        
-                        if(response.lamba==0){
-                            $('#lambaDurum').text("Lamba Kapalı");
+
+                        if (response.lamba == 0) {
+                            $('#lambaDurum').text(response.lamba);
+                            $('#lambaOnOff').text("Kapalı");
+                            $('#lambaOnOff').removeClass("status acik"); // renk degeri
+                            $('#lambaOnOff').addClass("status kapali");
+
+                            $('#lambaTitle').text("Kapalı");
+                            $('#lambaTitle').css("color","red");
+
+                            $('#lambaUzaktanKontrol').text("KAPALI");
+                            $('#lambaUzaktanKontrol').css("color","red");
+
+                            $('#btnLamba').text("Çalıştır");
+                            $('#btnLamba').removeClass("button close")
+                            $('#btnLamba').addClass("button")
+
+
                             // kapalı durumunda on off kısmını kırmızı hale getirip kapalı yazısı yazdır
                         }
                         else {
                             $('#lambaDurum').text("Lamba Açık");
-                            
+                            $('#lambaOnOff').text("Aktif");
+                            $('#lambaOnOff').removeClass("status kapali"); // renk degeri
+                            $('#lambaOnOff').addClass("status acik");
+
+
+                            $('#lambaTitle').text("Açık");
+                            $('#lambaTitle').css("color","green");
+
+                            $('#lambaUzaktanKontrol').text("AÇIK");
+                            $('#lambaUzaktanKontrol').css("color","green");
+
+                            $('#btnLamba').text("Kapat");
+                            $('#btnLamba').removeClass("button")
+                            $('#btnLamba').addClass("button close")
+
                         }
-                        
+
 
                     },
                     error: function (xhr, status) {
@@ -431,24 +652,33 @@
                 });
             }, 3000);
 
-              //isik
-              setInterval(function () {     //On Off düzenle
+            //isik
+            setInterval(function () {     //On Off düzenle
                 $.ajax({
                     url: "http://localhost:9000/isik",
                     type: "GET",
                     crossDomain: true,
                     dataType: "json",
                     success: function (response) {
-                        
-                        if(response.isik==0){
-                            $('#isikDurum').text("Hava Karanlık");
+
+                        if (response.isik == 1) {
+                            $('#isikDurum').text(" Karanlık");
+                            $('#isikOnOff').text("Aktif");
+                            $('#isikOnOff').removeClass("status kapali"); 
+                            $('#isikOnOff').addClass("status acik");
+                            
+
+
                             // kapalı durumunda on off kısmını kırmızı hale getirip kapalı yazısı yazdır
                         }
                         else {
-                            $('#isikDurum').text("Hava Aydınlık");
-                            
+                            $('#isikDurum').text("Aydınlık");
+                            $('#isikOnOff').text("Aktif");
+                            $('#isikOnOff').removeClass("status kapali"); // renk degeri
+                            $('#isikOnOff').addClass("status acik");
+
                         }
-                        
+
 
                     },
                     error: function (xhr, status) {
@@ -457,7 +687,94 @@
                 });
             }, 3000);
 
-            
+            //bahce --touch sensor
+            setInterval(function () {     //On Off düzenle
+                $.ajax({
+                    url: "http://localhost:9000/touch",
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (response) {
+
+                        if (response.touch == 1) {
+                            $('#touchDurum').text("Bahcede Hareket Algilandi");
+                            $('#touchOnOff').text("Aktif");
+                            $('#touchOnOff').removeClass("status kapali"); 
+                            $('#touchOnOff').addClass("status acik");
+                            
+
+
+                            // kapalı durumunda on off kısmını kırmızı hale getirip kapalı yazısı yazdır
+                        }
+                        else {
+                            $('#touchDurum').text("Hareket Yok");
+                            $('#touchOnOff').text("Aktif");
+                            $('#touchOnOff').removeClass("status kapali"); // renk degeri
+                            $('#touchOnOff').addClass("status acik");
+
+                        }
+
+
+                    },
+                    error: function (xhr, status) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
+
+            // servo                       //!-- NNOT SEVO ILE MOTOR AYNI VERIYI CEKIYOR
+            setInterval(function () {     //On Off düzenle
+                $.ajax({
+                    url: "http://localhost:9000/servo",
+                    type: "GET",
+                    crossDomain: true,
+                    dataType: "json",
+                    success: function (response) {
+
+                        if (response.servo == 1) {
+                            $('#servoDurum').text(" Motor Dönüyor");
+                            $('#servoOnOff').text("Aktif");
+                            $('#servoOnOff').removeClass("status kapali"); 
+                            $('#servoOnOff').addClass("status acik");
+
+                            $('#servoUzaktanKontrol').text("AÇIK");
+                            $('#servoUzaktanKontrol').css("color","green");
+
+                            $('#btnServo').text("Kapat");
+                            $('#btnServo').removeClass("button")
+                            $('#btnServo').addClass("button close")
+                            
+
+
+                            // kapalı durumunda on off kısmını kırmızı hale getirip kapalı yazısı yazdır
+                        }
+                        else {
+                            $('#servoDurum').text("Sabit");
+                            $('#servoOnOff').text("Kapalı");
+                            $('#servoOnOff').removeClass("status acik"); // renk degeri
+                            $('#servoOnOff').addClass("status kapali");
+
+                            $('#servoUzaktanKontrol').text("KAPALI");
+                            $('#servoUzaktanKontrol').css("color","red");
+
+                            $('#btnServo').text("Çalıştır");
+                            $('#btnServo').removeClass("button close")
+                            $('#btnServo').addClass("button")
+
+
+                            
+
+
+                        }
+
+
+                    },
+                    error: function (xhr, status) {
+                        alert("error");
+                    }
+                });
+            }, 3000);
+
 
 
         });

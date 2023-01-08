@@ -5,6 +5,7 @@ var firebase = require("firebase-admin");
 const cors = require("cors");
 const { Module } = require("module");
 const { json } = require("express");
+const { callbackify } = require("util");
 
 app.use(express.json());
 app.use(cors());
@@ -53,125 +54,244 @@ var db = firebase.database();
 
 //--------------------------------    YAZDIGIM APILER -------------------------
 
-app.get("/sensorler", (req, res) => {
-  db.ref()
-    .get()
-    .then((data) => res.status(200).send(data.val()));
-});
+// app.get("/sensorler", (req, res) => {
+//   db.ref()
+//     .get()
+//     .then((data) => res.status(200).send(data.val()));
+// });
 
-app.get('/', function(req, res,next) {  // "locachost:3000/"
-    res.sendFile(__dirname + '/index.html');
+// app.get('/', function(req, res,next) {  // "locachost:3000/"
+//     res.sendFile(__dirname + '/index.html');
 
-});
+// });
 
 //!--------------------------
 
+
+app.post("/servo", (req,res)=>{
+    //console.log(req.body);
+    var motorStatus = req.body.status;
+    db.ref("motor").set(motorStatus);
+    console.log("motor Durum: "+motorStatus)
+   
+    return res.status(200).write("ok");
+})
+
+app.post("/lamba", (req,res)=>{
+    //console.log(req.body);
+    var lambaStatus = req.body.status;
+    db.ref("lamba").set(lambaStatus);
+    console.log("lamba Durum: "+lambaStatus)
+   
+    return res.status(200).write("ok");
+})
+
+app.post("/fan", (req,res)=>{
+    //console.log(req.body);
+    var fanStatus = req.body.status;
+    db.ref("fan").set(fanStatus);
+    console.log("fan Durum: "+fanStatus)
+   
+    return res.status(200).write("ok");
+})
+
+
+
+
+
+//!--------------------------
 app.get("/sicaklik", (req,res) => {
-  
-  var sicaklik = db.ref('sicaklik');
-  sicaklik.on('value', (snapshot) => {
-    console.log("sicaklik  : "+snapshot.val());
+    var sicaklik = db.ref('sicaklik');
 
-    res.send(JSON.stringify({sicaklik:snapshot.val()}))
+    
+    sicaklik.once("value").then((snapshot)=>{
+        console.log("Sıcaklık : "+snapshot.val())
 
-    }, (errorObject) => {
-    console.log('The read failed: ' + errorObject.name);
-    }); 
+        return res.status(200).json({sicaklik:snapshot.val()})
+    })
 
+
+
+//   sicaklik.on('value', (snapshot) => {
+
+//     res.send(JSON.stringify({sicaklik:snapshot.val()}))
+    
+// }, (errorObject) => {
+
+//     console.log('The read failed: ' + errorObject.name);
+
+// }); 
+    
 })
 
 
 
 app.get("/nem", (req, res) => {
 
-  var nem= db.ref('nem');
-  nem.on('value', (snapshot) => {
-    console.log("nem  : "+snapshot.val());
+    var nem= db.ref('nem');
+    nem.once("value").then((snapshot)=>{
+        console.log("Nem : "+snapshot.val())
 
-    res.send(JSON.stringify({nem:snapshot.val()}))
+        return res.status(200).json({nem:snapshot.val()})
+    })
 
-    }, (errorObject) => {
-    console.log('The read failed: ' + errorObject.name);
-    }); 
+
+//   var nem= db.ref('nem');
+//   nem.on('value', (snapshot) => {
+    
+
+//     res.send(JSON.stringify({nem:snapshot.val()}))
+
+//     }, (errorObject) => {
+//     console.log('The read failed: ' + errorObject.name);
+//     }); 
 
 });
 
 app.get("/fan", (req,res) => {
-  
-  var fan = db.ref('fan');
-  fan.on('value', (snapshot) => {
-    console.log("fan  : "+snapshot.val());
+     var fan = db.ref('fan');
+     fan.once("value").then((snapshot)=>{
+        console.log("Fan  : "+snapshot.val())
 
-    res.send(JSON.stringify({fan:snapshot.val()}))
+        return res.status(200).json({fan:snapshot.val()})
+    })
 
-    }, (errorObject) => {
-    console.log('The read failed: ' + errorObject.name);
-    }); 
+     
 
-})
+     //   fan.on('value', (snapshot) => {
+ 
 
+//     res.send(JSON.stringify({fan:snapshot.val()}))
 
-app.get("/yagmur", (req,res) => {
-  
-  var yagmur = db.ref('yagmur');
-  yagmur.on('value', (snapshot) => {
-    console.log("yagmur  : "+snapshot.val());
-
-    res.send(JSON.stringify({yagmur:snapshot.val()}))
-
-    }, (errorObject) => {
-    console.log('The read failed: ' + errorObject.name);
-    }); 
+//     }, (errorObject) => {
+//     console.log('The read failed: ' + errorObject.name);
+//     }); 
 
 })
 
 
-app.get("/hareket", (req,res) => {
-  
-  var hareket = db.ref('hareket');
-  hareket.on('value', (snapshot) => {
-    console.log("hareket  : "+snapshot.val());
+ app.get("/yagmur", (req,res) => {
 
-    res.send(JSON.stringify({hareket:snapshot.val()}))
+    var yagmur = db.ref('yagmur');
 
-    }, (errorObject) => {
-    console.log('The read failed: ' + errorObject.name);
-    }); 
+    yagmur.once("value").then((snapshot)=>{
+        console.log("Yagmur : "+snapshot.val())
+        return res.status(200).json({yagmur:snapshot.val()})
+    })
+//   var yagmur = db.ref('yagmur');
+//   yagmur.on('value', (snapshot) => {
+
+//     res.send(JSON.stringify({yagmur:snapshot.val()}))
+
+//     }, (errorObject) => {
+//     console.log('The read failed: ' + errorObject.name);
+//     }); 
+
+ })
+
+
+ app.get("/hareket", (req,res) => {
+
+    var hareket = db.ref('hareket');
+
+    hareket.once("value").then((snapshot)=>{
+        console.log("hareket : "+snapshot.val())
+        return res.status(200).json({hareket:snapshot.val()})
+    })
+//   var hareket = db.ref('hareket');
+//   hareket.on('value', (snapshot) => {
+
+//     res.send(JSON.stringify({hareket:snapshot.val()}))
+
+//     }, (errorObject) => {
+//     console.log('The read failed: ' + errorObject.name);
+//     }); 
+
+ })
+
+
+ app.get("/lamba", (req,res) => {
+    var lamba = db.ref('lamba');
+
+    lamba.once("value").then((snapshot)=>{
+        console.log("Lamba : "+snapshot.val())
+
+        return res.status(200).json({lamba:snapshot.val()})
+    })
+
+
+//   var lamba = db.ref('lamba');
+//   lamba.on('value', (snapshot) => {
+
+//     res.send(JSON.stringify({lamba:snapshot.val()}))
+
+//     }, (errorObject) => {
+//     console.log('The read failed: ' + errorObject.name);
+//     }); 
 
 })
 
 
-app.get("/lamba", (req,res) => {
+ app.get("/isik", (req,res) => {
+
+
+    var isik = db.ref('isik');
+
+    isik.once("value").then((snapshot)=>{
+        console.log("Işık : "+snapshot.val())
+
+        return res.status(200).json({isik:snapshot.val()})
+    })
   
-  var lamba = db.ref('lamba');
-  lamba.on('value', (snapshot) => {
-    console.log("lamba  : "+snapshot.val());
+//   var isik = db.ref('isik');
+//   isik.on('value', (snapshot) => {
+//     res.send(JSON.stringify({isik:snapshot.val()}))
 
-    res.send(JSON.stringify({lamba:snapshot.val()}))
+//     }, (errorObject) => {
 
-    }, (errorObject) => {
-    console.log('The read failed: ' + errorObject.name);
-    }); 
+//     console.log('The read failed: ' + errorObject.name);
+//     }); 
 
-})
+ })
+
+ app.get("/touch", (req,res) => {
 
 
-app.get("/isik", (req,res) => {
+    var touch = db.ref('touch');
+
+    touch.once("value").then((snapshot)=>{
+        console.log("touch : "+snapshot.val())
+
+        return res.status(200).json({touch:snapshot.val()})
+    })
   
-  var isik = db.ref('isik');
-  isik.on('value', (snapshot) => {
-    console.log("isik  : "+snapshot.val());
+//   var isik = db.ref('isik');
+//   isik.on('value', (snapshot) => {
+//     res.send(JSON.stringify({isik:snapshot.val()}))
 
-    res.send(JSON.stringify({isik:snapshot.val()}))
+//     }, (errorObject) => {
 
-    }, (errorObject) => {
-    console.log('The read failed: ' + errorObject.name);
-    }); 
+//     console.log('The read failed: ' + errorObject.name);
+//     }); 
 
-})
+ })
 
 
-const port =process.env.PORT || 9000;
+ //!--------------- Uzaktan Kontrol Kısmı Butonlara basma
+
+ app.get("/servo", (req,res) => {
+    var servo = db.ref('motor');
+
+    
+    servo.once("value").then((snapshot)=>{
+        console.log("servo : "+snapshot.val())
+
+        return res.status(200).json({servo:snapshot.val()})
+    })
+ })
+
+
+const port = process.env.PORT || 9000;
 server.listen(port, () => console.log("App running on http://localhost:"+port));
 
 //--------------------------------------- FIREBASE SENSOR VERILERINI CEKME -----------------------------------------------------
